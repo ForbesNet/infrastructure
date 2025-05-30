@@ -1,0 +1,42 @@
+name: Provision Inngest with OpenTofu
+
+on:
+  workflow_dispatch: # Trigger manually from GitHub UI
+  push:
+    branches:
+      - 'main' # Trigger on merge/push to main
+
+jobs:
+  setup:
+    runs-on: self-hosted  # Run on a GitHub-hosted runner
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up OpenTofu
+      run: |
+        tofu --version  # Verify the installation
+
+    - name: Set up AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: "us-east-1"
+
+    - name: Initialize OpenTofu configuration
+      run: |
+        # Initialize OpenTofu configuration
+        tofu init -input=true
+
+    - name: Apply OpenTofu configuration to provision Inngest
+      run: |
+        # Run OpenTofu to apply configuration and provision resources
+        tofu apply -auto-approve
+
+    - name: Verify Inngest deployment
+      run: |
+        # Add steps here to verify that Inngest has been provisioned
+        # This might include checking the EC2 instance status, verifying logs, etc.
+

@@ -1,0 +1,53 @@
+name: Comment Plan on Pull Request
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+env:
+  TF_VAR_pihole_admin_pass: ${{ secrets.ADMIN_PASS }}
+  TF_VAR_vsphere_server: "vcenter.forbesnet.local"
+  TF_VAR_vsphere_user: administrator@vsphere.local
+  TF_VAR_vsphere_password: ${{ secrets.ADMIN_PASS }}
+
+jobs:
+  deploy:
+    runs-on: self-hosted  # Run on a GitHub-hosted runner
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up OpenTofu
+      run: |
+        curl -sSL https://github.com/opentofu/opentofu/releases/download/v1.9.1/tofu_1.9.1_linux_amd64.tar.gz -o /tmp/tofu.tar.gz
+        tar -xzf /tmp/tofu.tar.gz -C /tmp
+        sudo mv /tmp/tofu /usr/local/bin/tofu
+        chmod +x /usr/local/bin/tofu
+        tofu --version  # Verify the installation
+
+    - name: Set up AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: "us-east-1"
+
+    - name: Initialize OpenTofu configuration
+      run: |
+        # Initialize OpenTofu configuration
+        tofu init -input=true
+
+    - name: Plan
+      run: tofu plan -out .planfile
+
+    - name: Post PR comment
+      uses: borchero/terraform-plan-comment@v2
+      with:
+        token: ${{ github.token }}
+        planfile: .planfile
+        terraform-cmd: tofu
+
+
+
+

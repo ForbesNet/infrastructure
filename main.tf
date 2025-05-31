@@ -3,6 +3,9 @@ terraform {
     pihole = {
       source = "ryanwholey/pihole"
     }
+    vsphere = {
+      source = "hashicorp/vsphere"
+    }
   }
 
   backend "s3" {
@@ -17,10 +20,32 @@ provider "pihole" {
   password = var.pihole_admin_pass 
 }
 
+provider "vsphere" {
+  user                 = var.vsphere_user
+  password             = var.vsphere_password
+  vsphere_server       = var.vsphere_server
+  allow_unverified_ssl = true
+}
+
 module "pihole_dns_record" {
   source = "./modules/pihole"
   for_each = var.pihole_dns_records
 
     dns_record = "${each.key}.forbesnet.local"
     ip = each.value.ip
+}
+
+module "forbesnet_linux_vm" {
+  source   = "../../modules/forbesnet-linux-vm" # If referencing GHE
+  for_each = var.linux_vms
+
+    vm_name            = each.key
+    num_cpus           = each.value.num_cpus
+    memory             = each.value.memory
+    ipv4_address       = each.value.ipv4_address
+    vsphere_template   = each.value.vsphere_template
+    vsphere_datacenter = each.value.vsphere_datacenter
+    vsphere_datastore  = each.value.vsphere_datastore
+    vsphere_cluster    = each.value.vsphere_cluster
+    vsphere_network    = each.value.vsphere_network
 }

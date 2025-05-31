@@ -39,42 +39,42 @@ variable "vsphere_server" {
   default     = ""
 }
 
-## vSphere Infrastructure Information ##
-variable "vsphere_datacenter" {
-  description = "Target datacenter within vCenter where the VM will be placed"
-  type        = string
-  default     = ""
-}
+# ## vSphere Infrastructure Information ##
+# variable "vsphere_datacenter" {
+#   description = "Target datacenter within vCenter where the VM will be placed"
+#   type        = string
+#   default     = ""
+# }
 
-variable "vsphere_datastore" {
-  description = "Target datastore within vCenter where the VM will be placed"
-  type        = string
-  default     = ""
-}
+# variable "vsphere_datastore" {
+#   description = "Target datastore within vCenter where the VM will be placed"
+#   type        = string
+#   default     = ""
+# }
 
-variable "vsphere_cluster" {
-  description = "Target cluster within vCenter where the VM will be placed"
-  type        = string
-  default     = ""
-}
+# variable "vsphere_cluster" {
+#   description = "Target cluster within vCenter where the VM will be placed"
+#   type        = string
+#   default     = ""
+# }
 
-variable "vsphere_dvs" {
-  description = "Target distributed virtual switch within vCenter that hosts the VM's network"
-  type        = string
-  default     = ""
-}
+# variable "vsphere_dvs" {
+#   description = "Target distributed virtual switch within vCenter that hosts the VM's network"
+#   type        = string
+#   default     = ""
+# }
 
-variable "vsphere_network" {
-  description = "Target network within vCenter where the VM will be placed"
-  type        = string
-  default     = ""
-}
+# variable "vsphere_network" {
+#   description = "Target network within vCenter where the VM will be placed"
+#   type        = string
+#   default     = ""
+# }
 
-variable "vsphere_template" {
-  description = "The vSphere OS template that will be used to deploy the VM"
-  type        = string
-  default     = ""
-}
+# variable "vsphere_template" {
+#   description = "The vSphere OS template that will be used to deploy the VM"
+#   type        = string
+#   default     = ""
+# }
 
 ## Virtual Machine Information ##
 variable "linux_vms" {

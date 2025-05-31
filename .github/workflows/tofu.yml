@@ -6,6 +6,13 @@ on:
     branches:
       - 'main' # Trigger on merge/push to main
 
+env:
+  TF_VAR_pihole_admin_pass: ${{ secrets.ADMIN_PASS }}
+  TF_VAR_vsphere_server: "vcenter.forbesnet.local"
+  TF_VAR_vsphere_user: administrator@vsphere.local
+  TF_VAR_vsphere_password: ${{ secrets.ADMIN_PASS }}
+
+
 jobs:
   setup:
     runs-on: self-hosted  # Run on a GitHub-hosted runner
@@ -38,12 +45,5 @@ jobs:
       run: |
         # Run OpenTofu to apply configuration and provision resources
         tofu apply -auto-approve
-      env:
-        TF_VAR_pihole_admin_pass: ${{ secrets.ADMIN_PASS }}
-        
-    - name: Verify Inngest deployment
-      run: |
-        # Add steps here to verify that Inngest has been provisioned
-        # This might include checking the EC2 instance status, verifying logs, etc.
-          env:
+
 

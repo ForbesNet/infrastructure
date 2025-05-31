@@ -45,4 +45,4 @@ jobs:
         # This might include checking the EC2 instance status, verifying logs, etc.
           env:
       env:
-        PIHOLE_ADMIN_PASS: ${{ secrets.ADMIN_PASS }}
+        TF_VAR_PIHOLE_ADMIN_PASS: ${{ secrets.ADMIN_PASS }}

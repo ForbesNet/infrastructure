@@ -38,11 +38,12 @@ jobs:
       run: |
         # Run OpenTofu to apply configuration and provision resources
         tofu apply -auto-approve
-
+      env:
+        TF_VAR_pihole_admin_pass: ${{ secrets.ADMIN_PASS }}
+        
     - name: Verify Inngest deployment
       run: |
         # Add steps here to verify that Inngest has been provisioned
         # This might include checking the EC2 instance status, verifying logs, etc.
           env:
-      env:
-        TF_VAR_pihole_admin_pass: ${{ secrets.ADMIN_PASS }}
+

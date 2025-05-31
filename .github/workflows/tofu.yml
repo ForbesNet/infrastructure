@@ -43,4 +43,6 @@ jobs:
       run: |
         # Add steps here to verify that Inngest has been provisioned
         # This might include checking the EC2 instance status, verifying logs, etc.
-
+          env:
+      env:
+        PIHOLE_ADMIN_PASS: ${{ secrets.ADMIN_PASS }}

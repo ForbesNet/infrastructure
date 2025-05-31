@@ -36,7 +36,7 @@ module "pihole_dns_record" {
 }
 
 module "forbesnet_linux_vm" {
-  source   = "./modules/forbesnet-linux-vm" # If referencing GHE
+  source   = "./modules/forbesnet_linux_vm" # If referencing GHE
   for_each = var.linux_vms
 
     vm_name            = each.key

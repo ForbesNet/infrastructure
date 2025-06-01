@@ -1,3 +1,6 @@
+## TODO
+# option for additional disks/mounted. Main disk size option.
+
 terraform {
   required_providers {
     pihole = {

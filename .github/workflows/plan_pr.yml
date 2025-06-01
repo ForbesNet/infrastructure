@@ -11,7 +11,7 @@ env:
   TF_VAR_vsphere_password: ${{ secrets.ADMIN_PASS }}
 
 jobs:
-  deploy:
+  plan:
     runs-on: self-hosted  # Run on a GitHub-hosted runner
 
     steps:

@@ -17,6 +17,13 @@ provider "pihole" {
   password = var.pihole_admin_pass 
 }
 
+provider "vsphere" {
+  user                 = var.vsphere_user
+  password             = var.vsphere_password
+  vsphere_server       = var.vsphere_server
+  allow_unverified_ssl = true
+}
+
 module "pihole_dns_record" {
   source = "./modules/pihole"
   for_each = var.pihole_dns_records

@@ -14,7 +14,7 @@ env:
 
 
 jobs:
-  setup:
+  deploy:
     runs-on: self-hosted  # Run on a GitHub-hosted runner
 
     steps:

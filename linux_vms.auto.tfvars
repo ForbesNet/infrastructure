@@ -1,5 +1,5 @@
 linux_vms = {
-  gha_test = {
+  elastic = {
     num_cpus           = 4
     memory             = 8
     ipv4_address       = "192.168.1.59"

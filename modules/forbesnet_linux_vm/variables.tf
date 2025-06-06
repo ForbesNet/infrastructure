@@ -1,23 +1,23 @@
 ## Target vSphere Instance Information ##
 # The values of these variables should be passed using either environment vars or set in TFE directly
-# variable "vsphere_user" {
-#   description = "UPN of the user for which the connection and commands will run as"
-#   type        = string
-#   default     = ""
-# }
+variable "vsphere_user" {
+  description = "UPN of the user for which the connection and commands will run as"
+  type        = string
+  default     = ""
+}
 
-# variable "vsphere_password" {
-#   description = "Password of the user for which the connection and commands will run as"
-#   type        = string
-#   default     = ""
-#   sensitive   = true
-# }
+variable "vsphere_password" {
+  description = "Password of the user for which the connection and commands will run as"
+  type        = string
+  default     = ""
+  sensitive   = true
+}
 
-# variable "vsphere_server" {
-#   description = "Target vCenter server where the infrastructure data will be pulled and the VM will be built"
-#   type        = string
-#   default     = ""
-# }
+variable "vsphere_server" {
+  description = "Target vCenter server where the infrastructure data will be pulled and the VM will be built"
+  type        = string
+  default     = ""
+}
 
 ## vSphere Infrastructure Information ##
 variable "vsphere_datacenter" {

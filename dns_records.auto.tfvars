@@ -5,4 +5,7 @@ pihole_dns_records = {
   elastic = {
     ip = "192.168.1.54"
   },
+  fleet = {
+    ip = "192.168.1.55"
+  },
 }

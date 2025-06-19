@@ -1,0 +1,45 @@
+---
+ - name: Get IP address from newly created VM
+   hosts: localhost
+   gather_facts: yes
+   become: true
+   tasks: 
+    - name: Gather one specific VM
+      community.vmware.vmware_vm_info:
+        hostname: 'vcenter.forbesnet.local' #{{ vsphere_server }}
+        username: 'packer@vsphere.local' #{{ vsphere_user }}
+        password: 'Earth123!' #{{ vsphere_password }}
+        validate_certs: false
+        vm_name: '{{  vm_name  }}'
+      delegate_to: localhost
+      register: vm_info
+    - name: variables
+      debug:
+        var=vm_info.virtual_machines[0].ip_address
+    - name: Setting host facts using key=value pairs
+      ansible.builtin.set_fact: dhcp_ip="{{ vm_info.virtual_machines[0].ip_address }}"
+    - name: verbose 
+      debug: 
+        var=dhcp_ip
+    - name: check new vm_info
+      ansible.builtin.shell: hostname
+      delegate_to: "{{ dhcp_ip }}"
+    - name: set hostname
+      ansible.builtin.shell: sudo hostnamectl set-hostname {{  vm_name  }}
+      delegate_to: "{{ dhcp_ip }}"
+    - name: Set Static IP with NMCLI
+      ansible.builtin.shell: sudo nmcli connection modify ens192 ipv4.addresses {{ ipv4_address }}/24 gw4 192.168.1.1
+      delegate_to: "{{ dhcp_ip }}"
+    - name: Set IP to Manual
+      ansible.builtin.shell: sudo nmcli connection modify ens192 ipv4.method manual
+      delegate_to: "{{ dhcp_ip }}"
+    - name: Set DNS servers
+      ansible.builtin.shell: sudo nmcli connection modify ens192 ipv4.dns "192.168.1.33"
+      delegate_to: "{{ dhcp_ip }}"
+    - name: Reload Networking
+      ansible.builtin.shell: sudo nmcli connection down ens192 && sudo nmcli connection up ens192
+      delegate_to: "{{ dhcp_ip }}"
+      no_log: true
+      ignore_errors: true
+      timeout: 5
+        

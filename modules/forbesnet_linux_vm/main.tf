@@ -33,10 +33,10 @@ resource "vsphere_virtual_machine" "vm" {
       clone.0.template_uuid
     ]
   }
-  provisioner "local-exec" {
-    #command = "ansible-playbook ip_vm.yml --extra-vars "vm_name=${var.vm_name} ipv4_address={var.ipv4_address}" -u packer -p 'packer'"
-    command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u packer -p 'packer' -e 'vm_name=${var.vm_name}' -e 'ipv4_address=${var.ipv4_address}' ip_vm.yml"
-  }
+  # provisioner "local-exec" {
+  #   #command = "ansible-playbook ip_vm.yml --extra-vars "vm_name=${var.vm_name} ipv4_address={var.ipv4_address}" -u packer -p 'packer'"
+  #   command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u packer -p 'packer' -e 'vm_name=${var.vm_name}' -e 'ipv4_address=${var.ipv4_address}' ip_vm.yml"
+  # }
 
 }
 

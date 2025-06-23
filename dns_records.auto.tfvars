@@ -1,11 +1,14 @@
 pihole_dns_records = {
-  dns_test_record = {
-    ip = "192.168.1.98"
-  },
   elastic = {
     ip = "192.168.1.54"
   },
   fleet = {
     ip = "192.168.1.55"
   },
+  agent = {
+    ip = "192.168.1.56"
+  },
+  logstash = {
+    ip = "192.168.1.57"
+  }
 }

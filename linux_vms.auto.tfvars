@@ -79,5 +79,15 @@ linux_vms = {
     vsphere_datastore  = "Datastore"
     vsphere_network    = "VM Network"
   },
+  minikube = {
+    num_cpus           = 4
+    memory             = 8
+    ipv4_address       = "192.168.1.69"
+    vsphere_template   = "Packer/Packer_rocky9_5_LATEST"
+    vsphere_datacenter = "Lab"
+    vsphere_cluster    = "Cluster"
+    vsphere_datastore  = "Datastore"
+    vsphere_network    = "VM Network"
+  },
 
 }

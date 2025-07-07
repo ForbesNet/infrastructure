@@ -25,5 +25,8 @@ pihole_dns_records = {
   },
   k3s-server2 = {
     ip = "192.168.1.64"
+  },
+  minikube = {
+    ip = "192.168.1.69"
   }
 }

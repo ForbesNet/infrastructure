@@ -30,7 +30,7 @@ linux_vms = {
     vsphere_network    = "VM Network"
   },
   logstash = {
-    num_cpus           = 2
+    num_cpus           = 4
     memory             = 4
     ipv4_address       = "192.168.1.57"
     vsphere_template   = "Packer/Packer_rocky9_5_LATEST"
